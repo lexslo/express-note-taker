@@ -1,18 +1,12 @@
-{
-  "notes": [
-    {
-      "title": "Test Title",
-      "text": "Test text"
-    },
-    {
-      "title": "save note test",
-      "text": "testing post req to save note with an ID added",
-      "id": "1"
-    },
-    {
-      "title": "Another Saved Note",
-      "text": "check that proper ID is added",
-      "id": "2"
-    }
-  ]
-}
+[
+  {
+    "title": "Testing Again for POST",
+    "text": "blah blah blah",
+    "id": "3"
+  },
+  {
+    "title": "Note Test",
+    "text": "Trying to add more notes and test delete",
+    "id": "4"
+  }
+]

@@ -16,25 +16,55 @@ function createNewNote(body, notesArray) {
     const note = body;
     notesArray.push(note);
     // write the data to the notes.json file in the data directory
-    fs.writeFileSync(
+    fs.writeFile(
         path.join(__dirname, './db/db.json'),
         // save the array data as JSON, null = no editing, 2 = create space to be legible
-        JSON.stringify({ notes: notesArray }, null, 2)
+        JSON.stringify(notesArray, null, 2),
+        (err) => {
+            if (err) {
+                console.log(err);
+            }
+        }
     );
 
     return note;
 }
 
-app.get('/api/notes', (req,res) => {
+function deleteNote(id, notesArray) {
+    console.log('ID from deleteNote function: ' + id);
+    const newNotesArray = notesArray.filter(element => element.id !== id);
+
+    fs.writeFile(
+        path.join(__dirname, './db/db.json'),
+        JSON.stringify(newNotesArray, null, 2),
+        (err) => {
+            if (err) {
+                console.log(err);
+            }
+        }
+    );
+}
+
+app.get('/api/notes', (req, res) => {
     res.json(notes);
 });
 
 app.post('/api/notes', (req, res) => {
-    // set id to be one more than the highest id value
-    req.body.id = notes.length.toString();
+    console.log(notes);
+    // set id to be one more than the last note id value
+    let lastNote = notes.length - 1;
+    let lastNoteId = parseInt(notes[lastNote].id);
+    let nextId = lastNoteId + 1;
+    req.body.id = nextId.toString();
     // add note to json file and notes array in this function
     const note = createNewNote(req.body, notes);
     res.json(note);
+});
+
+app.delete('/api/notes/:id', (req, res) => {
+    const noteId = req.params.id;
+    deleteNote(noteId, notes);
+    res.send(`Note ID ${noteId} deleted`);
 });
 
 // set homepage
