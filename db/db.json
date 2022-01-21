@@ -1,12 +1,22 @@
 [
   {
-    "title": "Testing Again for POST",
-    "text": "blah blah blah",
-    "id": "3"
+    "title": "Front End Note",
+    "text": "Adding note from front end, fixed issue for id when no notes are saved",
+    "id": "0"
   },
   {
-    "title": "Note Test",
-    "text": "Trying to add more notes and test delete",
+    "title": "Unique IDs",
+    "text": "Seems to be creating unique IDs for each note, which is great",
     "id": "4"
+  },
+  {
+    "title": "Working really well",
+    "text": "Going to stop server, start server, and refresh this page again to be SURE!",
+    "id": "5"
+  },
+  {
+    "title": "Add Another After Restart",
+    "text": "Adding another note after restarting the server just to be sure all functionality persists\n",
+    "id": "6"
   }
 ]

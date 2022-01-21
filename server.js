@@ -32,17 +32,23 @@ function createNewNote(body, notesArray) {
 
 function deleteNote(id, notesArray) {
     console.log('ID from deleteNote function: ' + id);
-    const newNotesArray = notesArray.filter(element => element.id !== id);
+
+    notesArray.splice(
+        notesArray.indexOf(notesArray.filter(element => element.id === id)[0]),
+        1
+    );
 
     fs.writeFile(
         path.join(__dirname, './db/db.json'),
-        JSON.stringify(newNotesArray, null, 2),
+        JSON.stringify(notesArray, null, 2),
         (err) => {
             if (err) {
                 console.log(err);
             }
         }
     );
+    
+    return notesArray;
 }
 
 app.get('/api/notes', (req, res) => {
@@ -52,10 +58,14 @@ app.get('/api/notes', (req, res) => {
 app.post('/api/notes', (req, res) => {
     console.log(notes);
     // set id to be one more than the last note id value
-    let lastNote = notes.length - 1;
-    let lastNoteId = parseInt(notes[lastNote].id);
-    let nextId = lastNoteId + 1;
-    req.body.id = nextId.toString();
+    if (notes.length === 0) {
+        req.body.id = notes.length.toString();
+    } else {
+        let lastNote = notes.length - 1;
+        let lastNoteId = parseInt(notes[lastNote].id);
+        let nextId = lastNoteId + 1;
+        req.body.id = nextId.toString();
+    }
     // add note to json file and notes array in this function
     const note = createNewNote(req.body, notes);
     res.json(note);
