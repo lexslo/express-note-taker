@@ -77,10 +77,10 @@ app.delete('/api/notes/:id', (req, res) => {
     res.send(`Note ID ${noteId} deleted`);
 });
 
-// set homepage
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/index.html'));
-});
+// // set homepage
+// app.get('/', (req, res) => {
+//     res.sendFile(path.join(__dirname, './public/index.html'));
+// });
 // return notes.html when user goes to url/notes
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './public/notes.html'));
